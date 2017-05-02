@@ -1,0 +1,6 @@
+HOW TO COPY SHIT TO FLOWERS
+
+FIRST LOG IN AND MAKE A TABLE WITH SAME COLUMNS AS CSV
+
+THEN IN TERMINAL
+psql -h remotehost -d postgresql://username@flowers.mines.edu/csci403 -c "\COPY table_name FROM '/filepath/file.csv' WITH DELIMITER AS ','"
