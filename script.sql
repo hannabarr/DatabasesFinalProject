@@ -56,7 +56,7 @@ SET year_1_rate = CASE
 	COALESCE(
 		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 1) AND gender = 'F'), 0)) 
 	WHEN 0 THEN NULL 
-	ELSE (
+	ELSE 100 * (
 		(
 			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 0) AND gender = 'M'), 0) 
 			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 0) AND gender = 'F'), 0)
@@ -73,8 +73,101 @@ SET year_1_rate = CASE
 	) 
 	END;
 
+UPDATE Rates 
+SET year_2_rate = CASE 
+	(COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 0) AND gender = 'M'), 0) + 
+	COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 0) AND gender = 'F'), 0)) 
+	WHEN 0 THEN NULL 
+	ELSE 100 * (
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'F'), 0)
+		)
+		- 
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 0) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 0) AND gender = 'F'), 0))
+		) 
+	/ 
+	(
+		COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 0) AND gender = 'M'), 0) 
+		+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year - 0) AND gender = 'F'), 0)
+	) 
+	END;
 
+UPDATE Rates 
+SET year_3_rate = CASE 
+	(COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'M'), 0) + 
+	COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'F'), 0)) 
+	WHEN 0 THEN NULL 
+	ELSE 100 * (
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'F'), 0)
+		)
+		- 
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'F'), 0))
+		) 
+	/ 
+	(
+		COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'M'), 0) 
+		+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 1) AND gender = 'F'), 0)
+	) 
+	END;
 
+UPDATE Rates 
+SET year_4_rate = CASE 
+	(COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'M'), 0) + 
+	COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'F'), 0)) 
+	WHEN 0 THEN NULL 
+	ELSE 100 * (
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'F'), 0)
+		)
+		- 
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'F'), 0))
+		) 
+	/ 
+	(
+		COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'M'), 0) 
+		+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 2) AND gender = 'F'), 0)
+	) 
+	END;
+
+UPDATE Rates 
+SET year_5_rate = CASE 
+	(COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'M'), 0) + 
+	COALESCE(
+		(SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'F'), 0)) 
+	WHEN 0 THEN NULL 
+	ELSE 100 * (
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 4) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 4) AND gender = 'F'), 0)
+		)
+		- 
+		(
+			COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'M'), 0) 
+			+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'F'), 0))
+		) 
+	/ 
+	(
+		COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'M'), 0) 
+		+ COALESCE((SELECT count FROM BabyNames WHERE name = first_name AND year = (movie_year + 3) AND gender = 'F'), 0)
+	) 
+	END;
 
 
 
